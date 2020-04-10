@@ -2,26 +2,27 @@ import os
 import re
 from tools.inquire import inquire
 from tools.userAccept import yes_or_no
+from tools.configure import configure
 from pprint import pprint
 
 
 def select():
-    profiles = collectProfiles()
+    profiles = collect_profiles()
     profiles.append('create new profile')
-    selection = inquire("profile", "Select profile", profiles)
+    selection = inquire("profile", "select profile or create new", profiles)
     selected = selection['profile']
 
     return selected
 
-def collectProfiles():
+def collect_profiles():
     profiles = [re.findall(r'\[(.*?)\]',line) for line in open(os.path.expanduser("~/.aws/credentials"))]
     profile_list = [item for sublist in profiles for item in sublist]
 
     return profile_list
 
-def verifySelection():
+def verify_selection():
     selected_profile = select()
-    if selected_profile in collectProfiles():
+    if selected_profile in collect_profiles():
         existing(selected_profile)
     else:
         create()
@@ -30,16 +31,17 @@ def existing(profile):
     if yes_or_no('selected profile: %s' % profile):
         print("Lmao :D")
     else:
-        verifySelection()
+        verify_selection()
 
 def create():
     if yes_or_no('create new profile?'):
         print('new profile')
+        configure()
     else:
-        verifySelection()
+        verify_selection()
 
 def main():
-    verifySelection()
+    verify_selection()
 
 if __name__ == '__main__':
     main()

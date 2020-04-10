@@ -7,9 +7,13 @@ def yes_or_no(question):
     while not(answer == "y" or answer == "yes" or \
     answer == "n" or answer == "no"):
         print("Input yes or no")
-        answer = input(question + "(y/n):").lower().strip()
+        answer = input(question + "(y/n):")
         print("")
     if answer[0] == "y":
         return True
     else:
         return False
+
+def request_value(request):
+    response = input('please enter %s' % request)
+    return response
