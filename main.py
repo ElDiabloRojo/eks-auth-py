@@ -1,9 +1,7 @@
-from login.selector import select
-
+import login
 
 def main():
-    profile = select()
-    print(profile)
+    login.main()
 
 
 if __name__ == '__main__':
