@@ -1,8 +1,8 @@
-from login.selector import login
+from login.selector import select
 
 
 def main():
-    profile = login()
+    profile = select()
     print(profile)
 
 

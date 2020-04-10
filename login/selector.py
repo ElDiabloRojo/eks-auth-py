@@ -4,16 +4,16 @@ import re
 from pprint import pprint
 
 
-def login():
+def select():
     profiles = [re.findall(r'\[(.*?)\]',line) for line in open(os.path.expanduser("~/.aws/credentials"))]
     profile_list = [item for sublist in profiles for item in sublist]
-    selection = inquiry("profile", "Select profile", profile_list)
+    selection = inquire("profile", "Select profile", profile_list)
     selected = selection['profile']
 
     return selected
 
 
-def inquiry(name, desc, choice):
+def inquire(name, desc, choice):
     questions = [
         inquirer.List(
             name,
