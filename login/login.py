@@ -15,7 +15,7 @@ def select():
     return selected
 
 def collect_profiles():
-    profiles = [re.findall(r'\[(.*?)\]',line) for line in open(os.path.expanduser("~/.aws/credentials"))]
+    profiles = [re.findall(r'\[(.*?)\]',line) for line in open(os.path.expanduser('~/.aws/credentials'))]
     profile_list = [item for sublist in profiles for item in sublist]
 
     return profile_list
@@ -23,11 +23,11 @@ def collect_profiles():
 def verify_selection():
     selected_profile = select()
     if selected_profile in collect_profiles():
-        existing(selected_profile)
+        select_existing(selected_profile)
     else:
         create()
 
-def existing(profile):
+def select_existing(profile):
     if yes_or_no('selected profile: %s' % profile):
         print("Lmao :D")
     else:
@@ -35,7 +35,6 @@ def existing(profile):
 
 def create():
     if yes_or_no('create new profile?'):
-        print('new profile')
         configure()
     else:
         verify_selection()
