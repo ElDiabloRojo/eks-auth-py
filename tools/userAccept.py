@@ -1,13 +1,15 @@
-import login
+from login import login
 
 
-def userAccept(input):
-    while True:
-        try:
-            validation = input('? is this correct: %s [y/n]' % input)
-        except ValueError:
-            print('selection rejected, return to profile selection')
-            login.verifySelection()
-        else:
-            print('%s confirmed...' % profile)
-            break
+def yes_or_no(question):
+    answer = input(question + " (y/n): ").lower().strip()
+    print("")
+    while not(answer == "y" or answer == "yes" or \
+    answer == "n" or answer == "no"):
+        print("Input yes or no")
+        answer = input(question + "(y/n):").lower().strip()
+        print("")
+    if answer[0] == "y":
+        return True
+    else:
+        return False

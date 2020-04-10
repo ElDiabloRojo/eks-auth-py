@@ -1,7 +1,7 @@
 import os
 import re
-import tools.inquire
-import tools.userAccept
+from tools.inquire import inquire
+from tools.userAccept import yes_or_no
 from pprint import pprint
 
 
@@ -27,11 +27,16 @@ def verifySelection():
         create()
 
 def existing(profile):
-    print('selected profile: %s' % profile)
-    userAccept(profile)
+    if yes_or_no('selected profile: %s' % profile):
+        print("Lmao :D")
+    else:
+        verifySelection()
 
 def create():
-    print('you have selected to input a new profile')
+    if yes_or_no('create new profile?'):
+        print('new profile')
+    else:
+        verifySelection()
 
 def main():
     verifySelection()
