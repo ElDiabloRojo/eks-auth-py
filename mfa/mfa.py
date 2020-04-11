@@ -1,11 +1,12 @@
 import boto3
 import os
-import re
+
 
 def aws_client(svc, access_key, secret_key):
     client = boto3.client(svc, aws_access_key_id=access_key, aws_secret_access_key=secret_key)
 
     return client
+
 
 def get_session_token(profile):
     profile_keys = get_aws_keys(profile)
@@ -13,6 +14,7 @@ def get_session_token(profile):
     account_id = sts_client.get_caller_identity()["Account"]
 
     print(account_id)
+
 
 def get_account_details(profile):
     profile_keys = get_aws_keys(profile)
@@ -22,6 +24,7 @@ def get_account_details(profile):
 
     print(userGroups)
     return user
+
 
 def get_aws_keys(profile):
     with open(os.path.expanduser('~/.aws/credentials')) as credentials_file:
@@ -37,9 +40,11 @@ def get_aws_keys(profile):
 
     return profile_keys
 
+
 def main(profile):
     get_session_token(profile)
     get_account_details(profile)
 
+
 if __name__ == '__main__':
-    main(profile)
+    main()
