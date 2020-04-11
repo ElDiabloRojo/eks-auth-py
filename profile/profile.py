@@ -1,6 +1,7 @@
 import os
 
-class Profile():
+
+class Profile:
     def __init__(self, name, access_key=None, secret_key=None):
         self.name = name
         self.access_key = access_key
