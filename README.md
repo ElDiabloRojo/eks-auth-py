@@ -25,13 +25,13 @@ The use of script script assumes you have the following configured.
       "Sid": "VisualEditor1",
       "Effect": "Allow",
       "Action": "iam:GetUser",
-      "Resource": "arn:aws:iam::719789094322:user/${aws:username}"
+      "Resource": "arn:aws:iam::**ACCOUNT_NUMBER**:user/${aws:username}"
     },
     {
       "Sid": "VisualEditor2",
       "Effect": "Allow",
       "Action": "sts:AssumeRole",
-      "Resource": "arn:aws:iam::719789094322:role/kubernetes-admin"
+      "Resource": "arn:aws:iam::**ACCOUNT_NUMBER**:role/kubernetes-admin"
     }
   ]
 }
