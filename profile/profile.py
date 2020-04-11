@@ -1,6 +1,4 @@
 import os
-import boto3
-from aws import client
 
 
 class Profile:
