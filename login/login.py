@@ -20,27 +20,33 @@ def collect_profiles():
 
     return profile_list
 
-def verify_selection():
+def selector():
     selected_profile = select()
     if selected_profile in collect_profiles():
-        select_existing(selected_profile)
+        profile = select_existing(selected_profile)
     else:
         create()
 
+    return profile
+
 def select_existing(profile):
     if yes_or_no('selected profile: %s' % profile):
-        print("Lmao :D")
+
+        return profile
     else:
-        verify_selection()
+        selector()
 
 def create():
     if yes_or_no('create new profile?'):
         configure()
+
+        return profile
     else:
-        verify_selection()
+        selector()
 
 def main():
-    verify_selection()
+    profile = selector()
+    return profile
 
 if __name__ == '__main__':
     main()

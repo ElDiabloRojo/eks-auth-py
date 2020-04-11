@@ -1,7 +1,9 @@
 from login import login
+from mfa import mfa
 
 def main():
-    login.main()
+    profile = login.main()
+    mfa.main(profile)
 
 
 if __name__ == '__main__':

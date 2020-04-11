@@ -12,17 +12,15 @@ def configure():
         print('please enter the details for your new profile:\n')
         for k in profile_keys:
             profile[k] = request_value(k)
+        if yes_or_no('\nare these details correct?:\n%s' % profile):
+            verify_profile_exists(profile)
+            saved = True
+        else:
+            print('\nrestarting profile input:\n')
+            saved = False
+    profile = profile['profile name']
 
-        confirm_profile(profile)
-
-def confirm_profile(profile):
-    if yes_or_no('\nare these details correct?:\n%s' % profile):
-        verify_profile_exists(profile)
-        saved = True
-        
-    else:
-        print('\nrestarting profile input:\n')
-        saved = False
+    return profile
 
 def save_profile(profile):
     with open(os.path.expanduser('~/.aws/credentials'), 'a') as credentials_file:
