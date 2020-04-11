@@ -1,4 +1,4 @@
-from login import login
+from profile import selector
 
 
 def yes_or_no(question):
