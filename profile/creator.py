@@ -1,5 +1,5 @@
 import os
-from login import login
+from profile import selector
 from tools.userAccept import yes_or_no, request_value
 from pprint import pprint
 
@@ -12,15 +12,16 @@ def configure():
         print('please enter the details for your new profile:\n')
         for k in profile_keys:
             profile[k] = request_value(k)
-        if yes_or_no('\nare these details correct?:\n%s' % profile):
+        if yes_or_no('\nare these details correct?:\n{0}'.format(profile)):
             verify_profile_exists(profile)
             saved = True
         else:
             print('\nrestarting profile input:\n')
             saved = False
-    profile = profile['profile name']
+    profile_name = profile['profile name']
+    print(profile_name)
 
-    return profile
+    return profile_name
 
 def save_profile(profile):
     with open(os.path.expanduser('~/.aws/credentials'), 'a') as credentials_file:
@@ -29,8 +30,8 @@ def save_profile(profile):
         credentials_file.write('aws_secret_access_key = %s\n' % str(profile['AWS_SECRET_ACCESS_KEY']))
 
 def verify_profile_exists(profile):
-    while profile['profile name'] in login.collect_profiles():
-        print('profile already exists, please change:')
+    while profile['profile name'] in selector.collect_profiles():
+        print('profile already exists, please change\n')
         profile['profile name'] = request_value('profile name')
     print('saving profile...')
     save_profile(profile)

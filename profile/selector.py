@@ -1,8 +1,8 @@
 import os
 import re
+from profile import creator
 from tools.inquire import inquire
 from tools.userAccept import yes_or_no
-from tools.configure import configure
 from pprint import pprint
 
 
@@ -21,32 +21,32 @@ def collect_profiles():
     return profile_list
 
 def selector():
-    selected_profile = select()
-    if selected_profile in collect_profiles():
-        profile = select_existing(selected_profile)
+    selection = select()
+    if selection in collect_profiles():
+        selected_profile = select_existing(selection)
     else:
-        create()
+        selected_profile = create()
 
-    return profile
+    return selected_profile
 
-def select_existing(profile):
-    if yes_or_no('selected profile: %s' % profile):
+def select_existing(profile_name):
+    if yes_or_no('selected profile: %s' % profile_name):
 
-        return profile
+        return profile_name
     else:
         selector()
 
 def create():
     if yes_or_no('create new profile?'):
-        configure()
+        profile_name = creator.configure()
 
-        return profile
+        return profile_name
     else:
         selector()
 
 def main():
-    profile = selector()
-    return profile
+    profile_name = selector()
+    return profile_name
 
 if __name__ == '__main__':
     main()
