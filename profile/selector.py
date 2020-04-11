@@ -3,7 +3,6 @@ import re
 from profile import creator
 from tools.inquire import inquire
 from tools.userAccept import yes_or_no
-from pprint import pprint
 
 
 def select():
@@ -14,11 +13,13 @@ def select():
 
     return selected
 
+
 def collect_profiles():
     profiles = [re.findall(r'\[(.*?)\]',line) for line in open(os.path.expanduser('~/.aws/credentials'))]
     profile_list = [item for sublist in profiles for item in sublist]
 
     return profile_list
+
 
 def selector():
     selection = select()
@@ -29,12 +30,14 @@ def selector():
 
     return selected_profile
 
+
 def select_existing(profile_name):
     if yes_or_no('selected profile: %s' % profile_name):
 
         return profile_name
     else:
         selector()
+
 
 def create():
     if yes_or_no('create new profile?'):
@@ -44,9 +47,11 @@ def create():
     else:
         selector()
 
+
 def main():
     profile_name = selector()
     return profile_name
+
 
 if __name__ == '__main__':
     main()

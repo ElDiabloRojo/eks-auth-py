@@ -1,7 +1,6 @@
 import os
 from profile import selector
 from tools.userAccept import yes_or_no, request_value
-from pprint import pprint
 
 
 def configure():
@@ -23,11 +22,20 @@ def configure():
 
     return profile_name
 
+
 def save_profile(profile):
     with open(os.path.expanduser('~/.aws/credentials'), 'a') as credentials_file:
         credentials_file.write('\n[%s]\n' % str(profile['profile name']))
         credentials_file.write('aws_access_key_id = %s\n' % str(profile['AWS_ACCESS_KEY_ID']))
         credentials_file.write('aws_secret_access_key = %s\n' % str(profile['AWS_SECRET_ACCESS_KEY']))
+
+
+def save_session_profile(profile_name, mfa_session):
+    with open(os.path.expanduser('~/.aws/credentials'), 'a') as credentials_file:
+        credentials_file.write('\n[{0}-mfa]\n'.format(profile_name))
+        credentials_file.write('aws_access_key_id = {0}\n'.format(mfa_session['Credentials']['AccessKeyId']))
+        credentials_file.write('aws_secret_access_key = {0}\n'.format(mfa_session['Credentials']['SecretAccessKey']))
+        credentials_file.write('aws_session_token = {0}\n'.format(mfa_session['Credentials']['SessionToken']))
 
 def verify_profile_exists(profile):
     while profile['profile name'] in selector.collect_profiles():
